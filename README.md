@@ -1,5 +1,5 @@
 <div align="center">
-<img src="assets/icon.png" width="120" height="120" alt="PKG Sender for PS4 icon">
+<img src="icon.png" width="120" height="120" alt="PKG Sender for PS4 icon">
 
 # PKG Sender for PS4
 
@@ -46,7 +46,11 @@ Turn on the FTP server on your PS4 through GoldHEN first. Open the app, put in y
 
 ## A note on speed
 
-Don't expect miracles — transfer speed is mostly limited by your network and by how fast the PS4 itself can write to its drive, not by this app. GoldHEN's FTP server just isn't built for speed, so somewhere around 3-10 MB/s is normal and doesn't mean anything's wrong. If you can, plug the PS4 into Ethernet instead of WiFi, it usually helps more than anything else you could try.
+Transfer speed is limited by your network and by how fast the PS4 can write to its drive — not by this app. There's no artificial cap in the code; it sends data as fast as the connection and the PS4 allow.
+
+WiFi is the big factor here, and it depends heavily on which PS4 you have. The original launch model only supports WiFi 4 (802.11n, 2.4GHz), which tops out around 15-25 MB/s in good conditions — 3-10 MB/s over WiFi on that model is completely normal. The Slim and Pro support WiFi 5 (802.11ac, 5GHz) and can do noticeably better, though even then sustained speeds much above 30-50 MB/s are unusual for a single-antenna embedded chip like the one in these consoles.
+
+If you want real speed, plug the PS4 into Ethernet. It's gigabit on every model, and it removes WiFi as the bottleneck entirely — what you get after that mostly comes down to your PS4's storage. This is the single biggest thing you can do to speed up transfers, more than any app-side optimization.
 
 ## Platform-specific stuff
 
