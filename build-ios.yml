@@ -1,0 +1,51 @@
+name: Build iOS IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'PKGSenderIOS/**'
+      - '.github/workflows/build-ios.yml'
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        working-directory: PKGSenderIOS
+        run: xcodegen generate
+
+      - name: Build unsigned archive
+        working-directory: PKGSenderIOS
+        run: |
+          xcodebuild archive \
+            -project "PKG Sender for PS4.xcodeproj" \
+            -scheme "PKGSenderForPS4" \
+            -archivePath build/PKGSender.xcarchive \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: Package unsigned IPA
+        working-directory: PKGSenderIOS
+        run: |
+          mkdir -p build/Payload
+          cp -r "build/PKGSender.xcarchive/Products/Applications/PKG Sender for PS4.app" build/Payload/
+          cd build
+          zip -r "PKGSenderForPS4-unsigned.ipa" Payload
+          cd ..
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PKGSenderForPS4-unsigned-ipa
+          path: PKGSenderIOS/build/PKGSenderForPS4-unsigned.ipa
