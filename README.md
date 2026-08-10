@@ -5,7 +5,7 @@
 
 Send your own PS4 homebrew `.pkg` files straight to your console over FTP, without digging out a USB stick every time.
 
-Windows · macOS (Intel & Apple Silicon) · Linux · Android
+Windows · macOS (Intel & Apple Silicon) · Linux · Android · iOS
 </div>
 
 ---
@@ -32,13 +32,14 @@ As for firmware — this app doesn't really care what firmware your PS4 is on, i
 
 | Platform | File |
 |---|---|
-| Windows (64-bit) | `pkg-sender-windows.zip` |
-| macOS, Apple Silicon (M1/M2/M3/M4) | `pkg-sender-macos-applesilicon.zip` |
-| macOS, Intel | `pkg-sender-macos-intel.zip` |
-| Linux (x64) | `pkg-sender-linux.zip` |
-| Android | `pkg-sender-android.apk` |
+| Windows (64-bit) | `pkg-sender-windows-v1.6.zip` |
+| macOS, Apple Silicon (M1/M2/M3/M4) | `pkg-sender-macos-applesilicon-v1.6.zip` |
+| macOS, Intel | `pkg-sender-macos-intel-v1.6.zip` |
+| Linux (x64) | `pkg-sender-linux-v1.6.zip` |
+| Android | `pkgsender.apk` |
+| iOS | `PKGSenderForPS4.ipa` |
 
-Grab the latest from [Releases](../../releases). Desktop versions don't need installing, just unzip and run the executable.
+Grab the latest from [Releases](../../releases). Desktop versions don't need installing, just unzip and run the executable. Android and iOS need a couple of extra steps before you can actually install them — see the platform notes below.
 
 ## How to use it
 
@@ -62,9 +63,19 @@ If you want real speed, plug the PS4 into Ethernet. It's gigabit on every model,
 
 **Android** — you'll need to allow installs from unknown sources the first time, since this isn't on the Play Store.
 
+**iOS** — requires KSign, ESign, AltStore, or a jailbroken iPhone to install, since the `.ipa` is unsigned. See the dedicated section below.
+
+## iOS
+
+**⚠️ YOU MUST HAVE KSIGN, ESIGN, ALTSTORE, OR SIMILAR SIDESIGNING SOFTWARE INSTALLED — OR A JAILBROKEN IPHONE — TO INSTALL THIS APP. IT CANNOT BE INSTALLED BY SIMPLY OPENING THE `.ipa` FILE, SINCE IT'S NOT DISTRIBUTED THROUGH THE APP STORE.**
+
+Grab `PKGSenderForPS4.ipa` from [Releases](../../releases). It's intentionally unsigned — there's no Apple Developer account behind this project, so it can't be notarized or distributed the normal way. That's exactly what tools like KSign, ESign, and AltStore exist for: they re-sign an unsigned `.ipa` with your own Apple ID and install it, without needing the App Store. Import the file into whichever of those tools you use and follow its normal install flow. If your iPhone is jailbroken, you may also have other options depending on your jailbreak's package manager.
+
+The app itself works exactly like the other versions: enter your PS4's IP and FTP port, pick a `.pkg` file, hit send, then open Package Installer on the PS4 once the transfer finishes.
+
 ## Building it yourself
 
-The desktop app is built with Electron and uses the `basic-ftp` library for the FTP side of things. Android is a native Kotlin app using Apache Commons Net, built through Android Studio. Everything you need is in this repo if you want to build from source instead of using the prebuilt releases.
+The desktop app is built with Electron and uses the `basic-ftp` library for the FTP side of things. Android is a native Kotlin app using Apache Commons Net, built through Android Studio. iOS is a native SwiftUI app with its own hand-written FTP client built on Foundation's `Stream` API, generated into an Xcode project with `xcodegen` and compiled via the GitHub Actions workflow in this repo. Everything you need is in this repo if you want to build from source instead of using the prebuilt releases.
 
 ## One thing to be clear about
 
