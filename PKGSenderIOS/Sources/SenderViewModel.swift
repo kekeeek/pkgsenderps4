@@ -16,7 +16,7 @@ final class SenderViewModel: ObservableObject {
 
     // Standard path used by GoldHEN's Package Installer, identical to
     // the one scanned when installing from a USB drive.
-    static let remotePath = "/data/pkg"
+    nonisolated static let remotePath = "/data/pkg"
 
     @Published var ps4ip: String = ""
     @Published var ps4port: String = "2121"
