@@ -60,7 +60,7 @@ struct ContentView: View {
                         if let name = vm.selectedFileName {
                             Text("📦 \(name)")
                                 .foregroundColor(.appAccent2)
-                                .fontWeight(.semibold)
+                                .font(.body.weight(.semibold))
                                 .multilineTextAlignment(.center)
                             Text(SenderViewModel.formatSize(vm.selectedFileSize))
                                 .font(.caption)
@@ -97,7 +97,7 @@ struct ContentView: View {
                         .padding(14)
                         .background(vm.selectedFileURL == nil || vm.isSending ? Color.appAccent.opacity(0.4) : Color.appAccent)
                         .foregroundColor(.white)
-                        .fontWeight(.semibold)
+                        .font(.body.weight(.semibold))
                         .cornerRadius(10)
                 }
                 .disabled(vm.selectedFileURL == nil || vm.isSending)
