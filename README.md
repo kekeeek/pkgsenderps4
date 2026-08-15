@@ -20,7 +20,7 @@ The one thing you still have to do manually: once the transfer's done, open Pack
 
 ## Features
 
-Drag and drop on desktop, or pick a file from your file browser on Android. It goes to `/data/pkg`, the same spot GoldHEN's Package Installer checks when you install from USB, so there's nothing to configure there. You get a live progress bar with actual transfer speed while it's sending, and there's a small file browser built in so you can see what's already been sent to the PS4 and delete old files without needing to open a separate FTP client.
+Drag and drop on desktop, or pick a file from your file browser on Android. It goes to `/data/pkg`, the same spot GoldHEN's Package Installer checks when you install from USB, so there's nothing to configure there. You get a live progress bar with actual transfer speed and an estimated time remaining while it's sending, and there's a small file browser built in so you can see what's already been sent to the PS4 and delete old files without needing to open a separate FTP client.
 
 ## What you'll need
 
@@ -32,10 +32,10 @@ As for firmware — this app doesn't really care what firmware your PS4 is on, i
 
 | Platform | File |
 |---|---|
-| Windows (64-bit) | `pkg-sender-windows-v1.6.zip` |
-| macOS, Apple Silicon (M1/M2/M3/M4) | `pkg-sender-macos-applesilicon-v1.6.zip` |
-| macOS, Intel | `pkg-sender-macos-intel-v1.6.zip` |
-| Linux (x64) | `pkg-sender-linux-v1.6.zip` |
+| Windows (64-bit) | `pkg-sender-windows-v1.7.zip` |
+| macOS, Apple Silicon (M1/M2/M3/M4) | `pkg-sender-macos-applesilicon-v1.7.zip` |
+| macOS, Intel | `pkg-sender-macos-intel-v1.7.zip` |
+| Linux (x64) | `pkg-sender-linux-v1.7.zip` |
 | Android | `pkgsender.apk` |
 | iOS | `PKGSenderForPS4.ipa` |
 
@@ -43,7 +43,7 @@ Grab the latest from [Releases](../../releases). Desktop versions don't need ins
 
 ## How to use it
 
-Turn on the FTP server on your PS4 through GoldHEN first. Open the app, put in your PS4's IP (you'll find it under Settings → Network → View Connection Status on the console) and the FTP port. Drop your `.pkg` in, hit send, and watch it go. Once it's finished, head over to the PS4 and open Package Installer to install it. If you want to clean up old files later, there's a section at the bottom of the app that lists what's on the PS4 and lets you delete it straight from there.
+Turn on the FTP server on your PS4 through GoldHEN first. Open the app, put in your PS4's IP (you'll find it under Settings → Network → View Connection Status on the console) and the FTP port. Drop your `.pkg` in, hit send, and watch it go — the app shows your current speed and roughly how long is left. Once it's finished, head over to the PS4 and open Package Installer to install it. If you want to clean up old files later, there's a section at the bottom of the app that lists what's on the PS4 and lets you delete it straight from there.
 
 ## A note on speed
 
