@@ -120,6 +120,13 @@ struct ContentView: View {
                             Text(String(format: "%.1f MB/s", vm.progressSpeedMBs))
                                 .font(.caption2).bold().foregroundColor(.appAccent2)
                         }
+
+                        if !vm.progressEtaText.isEmpty {
+                            Text(vm.progressEtaText)
+                                .font(.caption2)
+                                .foregroundColor(.appMuted)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
                     }
                 }
 
