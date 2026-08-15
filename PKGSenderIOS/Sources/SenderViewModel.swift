@@ -28,6 +28,7 @@ final class SenderViewModel: ObservableObject {
     @Published var isSending = false
     @Published var progressPercent: Double = 0
     @Published var progressSpeedMBs: Double = 0
+    @Published var progressEtaText: String = ""
     @Published var showProgress = false
 
     @Published var statusMessage: String?
@@ -73,6 +74,7 @@ final class SenderViewModel: ObservableObject {
         showProgress = true
         progressPercent = 0
         progressSpeedMBs = 0
+        progressEtaText = ""
         showStatus(.info, "Connecting to \(ip)...")
 
         let totalSize = selectedFileSize
@@ -96,11 +98,18 @@ final class SenderViewModel: ObservableObject {
                         let bytesSinceLast = sent - lastBytes
                         let speedMBs = elapsed > 0 ? (Double(bytesSinceLast) / elapsed) / (1024 * 1024) : 0
                         let percent = totalSize > 0 ? min(100, (Double(sent) / Double(totalSize)) * 100) : 0
+
+                        let remainingBytes = totalSize - sent
+                        let etaSeconds: Double? = speedMBs > 0.05
+                            ? Double(remainingBytes) / (speedMBs * 1024 * 1024)
+                            : nil
+
                         lastBytes = sent
                         lastTime = now
                         Task { @MainActor in
                             self.progressPercent = percent
                             self.progressSpeedMBs = speedMBs
+                            self.progressEtaText = Self.formatEta(etaSeconds)
                         }
                     }
                 }
@@ -108,6 +117,7 @@ final class SenderViewModel: ObservableObject {
 
                 await MainActor.run {
                     self.progressPercent = 100
+                    self.progressEtaText = ""
                     self.showStatus(.success, "✅ Sent! Open Package Installer on your PS4 to install it.")
                     self.isSending = false
                     self.refreshFiles()
@@ -199,5 +209,16 @@ final class SenderViewModel: ObservableObject {
             return String(format: "%.2f GB", mb / 1024)
         }
         return String(format: "%.1f MB", mb)
+    }
+
+    static func formatEta(_ seconds: Double?) -> String {
+        guard let seconds = seconds, seconds.isFinite, seconds >= 0 else { return "" }
+        let totalSeconds = Int(seconds.rounded())
+        let mins = totalSeconds / 60
+        let secs = totalSeconds % 60
+        if mins <= 0 {
+            return "\(secs)s left"
+        }
+        return "\(mins)m \(secs)s left"
     }
 }
